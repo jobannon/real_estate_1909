@@ -26,7 +26,11 @@ class House
       total_house += room.area
     end
     total_house
-  # total_area each do |area|
+  end
 
+  def price_per_square_foot
+    binding.pry
+
+    @price.gsub('$', "").to_f.round(2) / self.area
   end
 end
