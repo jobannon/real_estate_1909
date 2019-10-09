@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/house'
 require './lib/room'
+require 'pry'
 
 class HouseTest < Minitest::Test
   def setup
@@ -25,4 +26,28 @@ class HouseTest < Minitest::Test
     refute @house.rooms.length == 3
   end
 
+  def test_rooms_from_category
+    room_3 = Room.new(:living_room, 25, 15)
+    room_4 = Room.new(:basement, 30, 41)
+
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(room_3)
+    @house.add_room(room_4)
+
+    assert @house.rooms_from_category(:bedroom).include?(@room_1)
+    assert @house.rooms_from_category(:bedroom).include?(@room_2)
+  end
+
+  def test_house_area
+    room_3 = Room.new(:living_room, 25, 15)
+    room_4 = Room.new(:basement, 30, 41)
+
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(room_3)
+    @house.add_room(room_4)
+
+    assert_equal 1900, @house.area
+  end
 end
